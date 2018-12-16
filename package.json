@@ -1,6 +1,6 @@
 {
   "name": "unity-n-optional",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Adds a simple unity compatible option type",
   "main": "index.js",
   "repository": {
