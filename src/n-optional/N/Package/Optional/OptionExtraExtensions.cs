@@ -12,16 +12,7 @@ namespace N.Package.Optional
         public static bool With<T>(this Option<T> option, Action<T> action)
         {
             if (!option) return false;
-            try
-            {
-                action(option.Unwrap(() => default(T)));
-            }
-            catch (Exception error)
-            {
-                Debug.LogError(error);
-                return false;
-            }
-
+            action(option.Unwrap(() => default(T)));
             return true;
         }
 
@@ -31,16 +22,7 @@ namespace N.Package.Optional
         public static async Task<bool> WithAsync<T>(this Option<T> option, Func<T, Task> action)
         {
             if (!option) return false;
-            try
-            {
-                await action(option.Unwrap(() => default(T)));
-            }
-            catch (Exception error)
-            {
-                Debug.LogError(error);
-                return false;
-            }
-
+            await action(option.Unwrap(() => default(T)));
             return true;
         }
 
@@ -49,33 +31,15 @@ namespace N.Package.Optional
         /// </summary>
         public static TRtn WithValue<T, TRtn>(this Option<T> option, Func<T, TRtn> action, TRtn defaultValue)
         {
-            if (!option) return defaultValue;
-            try
-            {
-                return action(option.Unwrap(() => default(T)));
-            }
-            catch (Exception error)
-            {
-                Debug.LogError(error);
-                return defaultValue;
-            }
+            return !option ? defaultValue : action(option.Unwrap(() => default(T)));
         }
 
         /// <summary>
         /// Return a value property on the option internal or defaultValue
         /// </summary>
-        public static Task<TRtn> WithValue<T, TRtn>(this Option<T> option, Func<T, Task<TRtn>> action, TRtn defaultValue)
+        public static Task<TRtn> WithValueAsync<T, TRtn>(this Option<T> option, Func<T, Task<TRtn>> action, TRtn defaultValue)
         {
-            if (!option) return Task.FromResult(defaultValue);
-            try
-            {
-                return action(option.Unwrap(() => default(T)));
-            }
-            catch (Exception error)
-            {
-                Debug.LogError(error);
-                return Task.FromResult(defaultValue);
-            }
+            return !option ? Task.FromResult(defaultValue) : action(option.Unwrap(() => default(T)));
         }
     }
 }
