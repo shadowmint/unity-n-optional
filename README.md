@@ -2,6 +2,10 @@
 
 Exposes an `Option` type for use in unity3d.
 
+If you don't have the JSON.Net namespace, delete this or reference it in the package manager.
+
+see: https://github.com/jilleJr/Newtonsoft.Json-for-Unity/wiki/Install-official-via-UPM#installing-the-package-via-upm-window
+
 ## Usage
 
 See the tests in the `Editor/` folder for each class for usage examples.
