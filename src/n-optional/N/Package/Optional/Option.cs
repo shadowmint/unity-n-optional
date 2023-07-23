@@ -63,6 +63,16 @@ namespace N.Package.Optional
       return Some ? _value : fallback;
     }
 
+    public T Unwrap()
+    {
+      if (!Some)
+      {
+        throw new Exception("Invalid attempt to unwrap empty option");
+      }
+
+      return _value;
+    }
+    
     /// <summary>
     /// Sometimes its convenient to use a factory function to generate a value. 
     /// </summary>
@@ -100,6 +110,11 @@ namespace N.Package.Optional
     public static bool operator !(Option<T> option)
     {
       return option.None;
+    }
+
+    public override string ToString()
+    {
+      return Some ? $"Some({_value})" : "None";
     }
   }
 }
